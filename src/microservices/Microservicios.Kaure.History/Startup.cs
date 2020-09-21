@@ -1,3 +1,8 @@
+using MediatR;
+using Microservicios.Kaure.Cross.RabbitMQ;
+using Microservicios.Kaure.Cross.RabbitMQ.Bus;
+using Microservicios.Kaure.History.RabbitMQ.Events;
+using Microservicios.Kaure.History.RabbitMQ.Handlers;
 using Microservicios.Kaure.History.Repository;
 using Microservicios.Kaure.History.Services;
 using Microsoft.AspNetCore.Builder;
@@ -24,6 +29,11 @@ namespace Microservicios.Kaure.History
 
             services.AddScoped<IHistoryService, HistoryService>();
             services.AddScoped<IRepositoryHistory, RepositoryHistory>();
+            
+            services.AddMediatR(typeof(Startup));
+            services.AddRabbitMQ();
+            services.AddTransient<DepositEventHandler>();
+            services.AddTransient<IEventHandler<DepositCreatedEvent>, DepositEventHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +52,14 @@ namespace Microservicios.Kaure.History
             {
                 endpoints.MapControllers();
             });
+            
+            ConfigureEventBus(app);
+        }
+        
+        private void ConfigureEventBus(IApplicationBuilder app)
+        {
+            var bus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            bus.Subscribe<DepositCreatedEvent, DepositEventHandler>();
         }
     }
 }

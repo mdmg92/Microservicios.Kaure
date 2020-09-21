@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\cross\Microservicios.Kaure.Cross.RabbitMQ\Microservicios.Kaure.Cross.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>

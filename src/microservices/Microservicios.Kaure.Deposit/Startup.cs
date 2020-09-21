@@ -1,3 +1,7 @@
+using MediatR;
+using Microservicios.Kaure.Cross.RabbitMQ;
+using Microservicios.Kaure.Deposit.RabbitMQ.Commands;
+using Microservicios.Kaure.Deposit.RabbitMQ.Handlers;
 using Microservicios.Kaure.Deposit.Repositories;
 using Microservicios.Kaure.Deposit.Repositories.Data;
 using Microservicios.Kaure.Deposit.Services;
@@ -33,6 +37,10 @@ namespace Microservicios.Kaure.Deposit
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<IDepositContext, DepositContext>();
+            
+            services.AddMediatR(typeof(Startup));
+            services.AddRabbitMQ();
+            services.AddTransient<IRequestHandler<DepositCreateCommand, bool>, DepositCommandHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

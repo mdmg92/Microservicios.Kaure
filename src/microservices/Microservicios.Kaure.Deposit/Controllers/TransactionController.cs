@@ -1,5 +1,7 @@
 ﻿using System;
+using Microservicios.Kaure.Cross.RabbitMQ.Bus;
 using Microservicios.Kaure.Deposit.DTOs;
+using Microservicios.Kaure.Deposit.RabbitMQ.Commands;
 using Microservicios.Kaure.Deposit.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +12,14 @@ namespace Microservicios.Kaure.Deposit.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly ITransactionService _transactionService;
+        private readonly IEventBus _bus;
 
-        public TransactionController(ITransactionService transactionService)
+        public TransactionController(
+            ITransactionService transactionService,
+            IEventBus bus)
         {
             _transactionService = transactionService;
+            _bus = bus;
         }
 
         [HttpPost("Deposit")]
@@ -27,6 +33,13 @@ namespace Microservicios.Kaure.Deposit.Controllers
                 Type = "Deposit"
             };
             _transactionService.Deposit(transaction);
+            
+            _bus.SendCommand(new DepositCreateCommand(
+                idTransaction: transaction.Id,
+                amount: transaction.Amount,
+                type: transaction.Type,
+                creationDate: transaction.CreationDate,
+                accountId: transaction.AccountId));
 
             return Ok();
         }
