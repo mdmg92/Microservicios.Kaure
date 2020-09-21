@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservicios.Kaure.Securi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservicios.Kaure.Account", "src\microservices\Microservicios.Kaure.Account\Microservicios.Kaure.Account.csproj", "{4C6477B6-3F0D-4014-8747-10AE0B47F85B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservicios.Kaure.Deposit", "src\microservices\Microservicios.Kaure.Deposit\Microservicios.Kaure.Deposit.csproj", "{F8162CE8-8401-4931-AD94-6C735D84233E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,7 @@ Global
 		{CA5EB953-A5D2-44D0-BBEB-1A7F6104F5D0} = {BB74FE27-7A24-42C0-A3D5-C2DC0E25B2C7}
 		{79E39FF4-08FB-486F-98C3-530A78002A5A} = {7395582F-7FE3-4F09-ABC7-3F034202AD0E}
 		{4C6477B6-3F0D-4014-8747-10AE0B47F85B} = {7395582F-7FE3-4F09-ABC7-3F034202AD0E}
+		{F8162CE8-8401-4931-AD94-6C735D84233E} = {7395582F-7FE3-4F09-ABC7-3F034202AD0E}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CA5EB953-A5D2-44D0-BBEB-1A7F6104F5D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -38,5 +41,9 @@ Global
 		{4C6477B6-3F0D-4014-8747-10AE0B47F85B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C6477B6-3F0D-4014-8747-10AE0B47F85B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C6477B6-3F0D-4014-8747-10AE0B47F85B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8162CE8-8401-4931-AD94-6C735D84233E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8162CE8-8401-4931-AD94-6C735D84233E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8162CE8-8401-4931-AD94-6C735D84233E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8162CE8-8401-4931-AD94-6C735D84233E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
