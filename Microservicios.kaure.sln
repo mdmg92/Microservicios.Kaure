@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservicios.Kaure.Notifi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservicios.Kaure.Cross.RabbitMQ", "src\cross\Microservicios.Kaure.Cross.RabbitMQ\Microservicios.Kaure.Cross.RabbitMQ.csproj", "{0E1F0773-9FAE-44C7-B7C0-2D7100718AE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservicios.Kaure.Cross.Proxy", "src\cross\Microservicios.Kaure.Cross.Proxy\Microservicios.Kaure.Cross.Proxy.csproj", "{994E16EB-AA14-41B1-AA2F-9CD5C94D42EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,7 @@ Global
 		{55254954-B4D9-42D7-890E-B1087465A2BE} = {7395582F-7FE3-4F09-ABC7-3F034202AD0E}
 		{54131D6E-58EA-48AA-A880-396EBF7B6087} = {7395582F-7FE3-4F09-ABC7-3F034202AD0E}
 		{0E1F0773-9FAE-44C7-B7C0-2D7100718AE4} = {BB74FE27-7A24-42C0-A3D5-C2DC0E25B2C7}
+		{994E16EB-AA14-41B1-AA2F-9CD5C94D42EF} = {BB74FE27-7A24-42C0-A3D5-C2DC0E25B2C7}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CA5EB953-A5D2-44D0-BBEB-1A7F6104F5D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -73,5 +76,9 @@ Global
 		{0E1F0773-9FAE-44C7-B7C0-2D7100718AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E1F0773-9FAE-44C7-B7C0-2D7100718AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E1F0773-9FAE-44C7-B7C0-2D7100718AE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{994E16EB-AA14-41B1-AA2F-9CD5C94D42EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{994E16EB-AA14-41B1-AA2F-9CD5C94D42EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{994E16EB-AA14-41B1-AA2F-9CD5C94D42EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{994E16EB-AA14-41B1-AA2F-9CD5C94D42EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
