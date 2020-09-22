@@ -1,3 +1,7 @@
+using MediatR;
+using Microservicios.Kaure.Cross.RabbitMQ;
+using Microservicios.Kaure.Withdrawal.RabbitMQ.Commands;
+using Microservicios.Kaure.Withdrawal.RabbitMQ.Handlers;
 using Microservicios.Kaure.Withdrawal.Repositories;
 using Microservicios.Kaure.Withdrawal.Repositories.Data;
 using Microservicios.Kaure.Withdrawal.Service;
@@ -33,6 +37,10 @@ namespace Microservicios.Kaure.Withdrawal
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<IWithdrawalContext, WithdrawalContext>();
+            
+            services.AddMediatR(typeof(Startup));
+            services.AddRabbitMQ();
+            services.AddTransient<IRequestHandler<WithdrawalCreateCommand, bool>, WithdrawalCommandHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

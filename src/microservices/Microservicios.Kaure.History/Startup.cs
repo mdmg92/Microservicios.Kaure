@@ -33,7 +33,9 @@ namespace Microservicios.Kaure.History
             services.AddMediatR(typeof(Startup));
             services.AddRabbitMQ();
             services.AddTransient<DepositEventHandler>();
+            services.AddTransient<WithdrawalEventHandler>();
             services.AddTransient<IEventHandler<DepositCreatedEvent>, DepositEventHandler>();
+            services.AddTransient<IEventHandler<WithdrawalCreatedEvent>, WithdrawalEventHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +62,7 @@ namespace Microservicios.Kaure.History
         {
             var bus = app.ApplicationServices.GetRequiredService<IEventBus>();
             bus.Subscribe<DepositCreatedEvent, DepositEventHandler>();
+            bus.Subscribe<WithdrawalCreatedEvent, WithdrawalEventHandler>();
         }
     }
 }
