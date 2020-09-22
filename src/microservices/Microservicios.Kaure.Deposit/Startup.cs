@@ -41,6 +41,7 @@ namespace Microservicios.Kaure.Deposit
             services.AddMediatR(typeof(Startup));
             services.AddRabbitMQ();
             services.AddTransient<IRequestHandler<DepositCreateCommand, bool>, DepositCommandHandler>();
+            services.AddTransient<IRequestHandler<NotificateTransactionCommand, bool>, NotificationCommandHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

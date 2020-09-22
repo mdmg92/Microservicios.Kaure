@@ -42,6 +42,12 @@ namespace Microservicios.Kaure.Withdrawal.Controllers
                 creationDate: transaction.CreationDate,
                 accountId: transaction.AccountId));
 
+            _bus.SendCommand(new NotificateTransactionCommand
+            {
+                AccountId = transaction.AccountId,
+                SendDate = transaction.CreationDate
+            });
+
             return Ok();
         }
     }

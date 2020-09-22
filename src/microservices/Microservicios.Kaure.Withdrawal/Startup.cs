@@ -41,6 +41,7 @@ namespace Microservicios.Kaure.Withdrawal
             services.AddMediatR(typeof(Startup));
             services.AddRabbitMQ();
             services.AddTransient<IRequestHandler<WithdrawalCreateCommand, bool>, WithdrawalCommandHandler>();
+            services.AddTransient<IRequestHandler<NotificateTransactionCommand, bool>, NotificationCommandHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

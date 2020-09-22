@@ -1,3 +1,8 @@
+using MediatR;
+using Microservicios.Kaure.Cross.RabbitMQ;
+using Microservicios.Kaure.Cross.RabbitMQ.Bus;
+using Microservicios.Kaure.Notification.RabbitMQ.Events;
+using Microservicios.Kaure.Notification.RabbitMQ.Handlers;
 using Microservicios.Kaure.Notification.Repositories;
 using Microservicios.Kaure.Notification.Repositories.Data;
 using Microsoft.AspNetCore.Builder;
@@ -32,6 +37,11 @@ namespace Microservicios.Kaure.Notification
             services.AddScoped<IMailRepository, MailRepository>();
 
             services.AddScoped<INotificationContext, NotificationContext>();
+            
+            services.AddMediatR(typeof(Startup));
+            services.AddRabbitMQ();
+            services.AddTransient<NotificationEventHandler>();
+            services.AddTransient<IEventHandler<NotificationCreatedEvent>, NotificationEventHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +60,14 @@ namespace Microservicios.Kaure.Notification
             {
                 endpoints.MapControllers();
             });
+            
+            ConfigureEventBus(app);
+        }
+
+        private void ConfigureEventBus(IApplicationBuilder app)
+        {
+            var bus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            bus.Subscribe<NotificationCreatedEvent, NotificationEventHandler>();
         }
     }
 }
