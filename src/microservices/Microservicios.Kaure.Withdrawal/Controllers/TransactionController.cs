@@ -3,7 +3,7 @@ using Microservicios.Kaure.Cross.RabbitMQ.Bus;
 using Microservicios.Kaure.Withdrawal.DTOs;
 using Microservicios.Kaure.Withdrawal.Models;
 using Microservicios.Kaure.Withdrawal.RabbitMQ.Commands;
-using Microservicios.Kaure.Withdrawal.Service;
+using Microservicios.Kaure.Withdrawal.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservicios.Kaure.Withdrawal.Controllers
@@ -13,13 +13,16 @@ namespace Microservicios.Kaure.Withdrawal.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly ITransactionService _transactionService;
+        private readonly IAccountService _accountService;
         private readonly IEventBus _bus;
 
         public TransactionController(
             ITransactionService transactionService,
+            IAccountService accountService,
             IEventBus bus)
         {
             _transactionService = transactionService;
+            _accountService = accountService;
             _bus = bus;
         }
 
@@ -35,18 +38,21 @@ namespace Microservicios.Kaure.Withdrawal.Controllers
             };
             _transactionService.Withdrawal(transaction);
 
-            _bus.SendCommand(new WithdrawalCreateCommand(
-                idTransaction: transaction.Id,
-                amount: transaction.Amount,
-                type: transaction.Type,
-                creationDate: transaction.CreationDate,
-                accountId: transaction.AccountId));
-
-            _bus.SendCommand(new NotificateTransactionCommand
+            if (_accountService.Execute(transaction))
             {
-                AccountId = transaction.AccountId,
-                SendDate = transaction.CreationDate
-            });
+                _bus.SendCommand(new WithdrawalCreateCommand(
+                    idTransaction: transaction.Id,
+                    amount: transaction.Amount,
+                    type: transaction.Type,
+                    creationDate: transaction.CreationDate,
+                    accountId: transaction.AccountId));
+
+                _bus.SendCommand(new NotificateTransactionCommand
+                {
+                    AccountId = transaction.AccountId,
+                    SendDate = transaction.CreationDate
+                });   
+            }
 
             return Ok();
         }

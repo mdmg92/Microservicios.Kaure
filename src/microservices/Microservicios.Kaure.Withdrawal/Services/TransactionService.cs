@@ -1,7 +1,7 @@
 ﻿using Microservicios.Kaure.Withdrawal.Models;
 using Microservicios.Kaure.Withdrawal.Repositories;
 
-namespace Microservicios.Kaure.Withdrawal.Service
+namespace Microservicios.Kaure.Withdrawal.Services
 {
     public class TransactionService : ITransactionService
     {

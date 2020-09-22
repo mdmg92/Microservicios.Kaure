@@ -1,10 +1,11 @@
 using MediatR;
+using Microservicios.Kaure.Cross.Proxy;
 using Microservicios.Kaure.Cross.RabbitMQ;
 using Microservicios.Kaure.Withdrawal.RabbitMQ.Commands;
 using Microservicios.Kaure.Withdrawal.RabbitMQ.Handlers;
 using Microservicios.Kaure.Withdrawal.Repositories;
 using Microservicios.Kaure.Withdrawal.Repositories.Data;
-using Microservicios.Kaure.Withdrawal.Service;
+using Microservicios.Kaure.Withdrawal.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,7 @@ namespace Microservicios.Kaure.Withdrawal
               });
 
             services.AddScoped<ITransactionService, TransactionService>();
+            services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<IWithdrawalContext, WithdrawalContext>();
             
@@ -42,6 +44,8 @@ namespace Microservicios.Kaure.Withdrawal
             services.AddRabbitMQ();
             services.AddTransient<IRequestHandler<WithdrawalCreateCommand, bool>, WithdrawalCommandHandler>();
             services.AddTransient<IRequestHandler<NotificateTransactionCommand, bool>, NotificationCommandHandler>();
+
+            services.AddProxyHttp();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

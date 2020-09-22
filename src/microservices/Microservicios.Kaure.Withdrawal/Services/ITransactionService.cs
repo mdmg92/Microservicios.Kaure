@@ -1,6 +1,6 @@
 ﻿using Microservicios.Kaure.Withdrawal.Models;
 
-namespace Microservicios.Kaure.Withdrawal.Service
+namespace Microservicios.Kaure.Withdrawal.Services
 {
     public interface ITransactionService
     {
