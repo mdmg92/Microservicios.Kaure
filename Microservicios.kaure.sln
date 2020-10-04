@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 
+#
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{56FF7FDE-1DFD-4AFD-98AD-83AE26A17178}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cross", "cross", "{BB74FE27-7A24-42C0-A3D5-C2DC0E25B2C7}"
@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservicios.Kaure.Cross.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservicios.Kaure.Cross.Proxy", "src\cross\Microservicios.Kaure.Cross.Proxy\Microservicios.Kaure.Cross.Proxy.csproj", "{994E16EB-AA14-41B1-AA2F-9CD5C94D42EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservicios.Kaure.Cross.Consul", "src\cross\Microservicios.Kaure.Cross.Consul\Microservicios.Kaure.Cross.Consul.csproj", "{B4AAE4A5-984A-4615-A971-FCF3CE8C20F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,7 @@ Global
 		{54131D6E-58EA-48AA-A880-396EBF7B6087} = {7395582F-7FE3-4F09-ABC7-3F034202AD0E}
 		{0E1F0773-9FAE-44C7-B7C0-2D7100718AE4} = {BB74FE27-7A24-42C0-A3D5-C2DC0E25B2C7}
 		{994E16EB-AA14-41B1-AA2F-9CD5C94D42EF} = {BB74FE27-7A24-42C0-A3D5-C2DC0E25B2C7}
+		{B4AAE4A5-984A-4615-A971-FCF3CE8C20F6} = {BB74FE27-7A24-42C0-A3D5-C2DC0E25B2C7}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CA5EB953-A5D2-44D0-BBEB-1A7F6104F5D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -80,5 +83,9 @@ Global
 		{994E16EB-AA14-41B1-AA2F-9CD5C94D42EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{994E16EB-AA14-41B1-AA2F-9CD5C94D42EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{994E16EB-AA14-41B1-AA2F-9CD5C94D42EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4AAE4A5-984A-4615-A971-FCF3CE8C20F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4AAE4A5-984A-4615-A971-FCF3CE8C20F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4AAE4A5-984A-4615-A971-FCF3CE8C20F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4AAE4A5-984A-4615-A971-FCF3CE8C20F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
