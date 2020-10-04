@@ -1,4 +1,7 @@
+using Consul;
 using MediatR;
+using Microservicios.Kaure.Cross.Consul.Consul;
+using Microservicios.Kaure.Cross.Consul.Mvc;
 using Microservicios.Kaure.Cross.RabbitMQ;
 using Microservicios.Kaure.Cross.RabbitMQ.Bus;
 using Microservicios.Kaure.Notification.RabbitMQ.Events;
@@ -7,6 +10,7 @@ using Microservicios.Kaure.Notification.Repositories;
 using Microservicios.Kaure.Notification.Repositories.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,11 +46,19 @@ namespace Microservicios.Kaure.Notification
             services.AddRabbitMQ();
             services.AddTransient<NotificationEventHandler>();
             services.AddTransient<IEventHandler<NotificationCreatedEvent>, NotificationEventHandler>();
+            
+            services.AddSingleton<IServiceId, ServiceId>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddConsul();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        public void Configure(
+            IApplicationBuilder app, 
+            IWebHostEnvironment env,
+            IHostApplicationLifetime applicationLifetime,
+            IConsulClient consulClient
+        ) {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -62,6 +74,12 @@ namespace Microservicios.Kaure.Notification
             });
             
             ConfigureEventBus(app);
+            
+            var serviceId = app.UseConsul();
+            applicationLifetime.ApplicationStopped.Register(() =>
+            {
+                consulClient.Agent.ServiceDeregister(serviceId);
+            });
         }
 
         private void ConfigureEventBus(IApplicationBuilder app)

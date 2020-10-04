@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\cross\Microservicios.Kaure.Cross.Consul\Microservicios.Kaure.Cross.Consul.csproj" />
     <ProjectReference Include="..\..\cross\Microservicios.Kaure.Cross.RabbitMQ\Microservicios.Kaure.Cross.RabbitMQ.csproj" />
   </ItemGroup>
 

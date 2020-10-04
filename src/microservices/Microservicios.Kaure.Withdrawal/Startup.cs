@@ -1,4 +1,7 @@
+using Consul;
 using MediatR;
+using Microservicios.Kaure.Cross.Consul.Consul;
+using Microservicios.Kaure.Cross.Consul.Mvc;
 using Microservicios.Kaure.Cross.Proxy;
 using Microservicios.Kaure.Cross.RabbitMQ;
 using Microservicios.Kaure.Withdrawal.RabbitMQ.Commands;
@@ -8,6 +11,7 @@ using Microservicios.Kaure.Withdrawal.Repositories.Data;
 using Microservicios.Kaure.Withdrawal.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,11 +50,19 @@ namespace Microservicios.Kaure.Withdrawal
             services.AddTransient<IRequestHandler<NotificateTransactionCommand, bool>, NotificationCommandHandler>();
 
             services.AddProxyHttp();
+            
+            services.AddSingleton<IServiceId, ServiceId>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddConsul();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        public void Configure(
+            IApplicationBuilder app, 
+            IWebHostEnvironment env,
+            IHostApplicationLifetime applicationLifetime,
+            IConsulClient consulClient
+        ) {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -63,6 +75,12 @@ namespace Microservicios.Kaure.Withdrawal
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            
+            var serviceId = app.UseConsul();
+            applicationLifetime.ApplicationStopped.Register(() =>
+            {
+                consulClient.Agent.ServiceDeregister(serviceId);
             });
         }
     }
