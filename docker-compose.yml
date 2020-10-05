@@ -1,0 +1,77 @@
+version: "3.8"
+
+services:
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: . 
+      dockerfile: src/gateway/Microservicios.Kaure.Gateway/Dockerfile
+    ports:
+      - 5000:80
+    networks:
+      - micro
+
+  security-service:
+    container_name: security-service
+    build: 
+      context: .
+      dockerfile: src/microservices/Microservicios.Kaure.Security/Dockerfile
+    ports:
+      - 5001:80
+    networks:
+      - micro
+  
+  account-service:
+    container_name: account-service
+    build: 
+      context: .
+      dockerfile: src/microservices/Microservicios.Kaure.Account/Dockerfile
+    ports:
+      - 5002:80
+    networks:
+      - micro
+
+  deposit-service:
+    container_name: deposit-service
+    build:
+      context: .
+      dockerfile: src/microservices/Microservicios.Kaure.Deposit/Dockerfile
+    ports:
+      - 5003:80
+    networks:
+      - micro
+
+  withdrawal-service:
+    container_name: withdrawal-service
+    build: 
+      context: .
+      dockerfile: src/microservices/Microservicios.Kaure.Withdrawal/Dockerfile
+    ports:
+      - 5004:80
+    networks:
+      - micro
+        
+  history-service:
+    container_name: history-service
+    build: 
+      context: .
+      dockerfile: src/microservices/Microservicios.Kaure.History/Dockerfile
+    ports:
+      - 5005:80
+    networks:
+      - micro
+
+  notification-service:
+    container_name: notification-service
+    build: 
+      context: .
+      dockerfile: src/microservices/Microservicios.Kaure.Notification/Dockerfile
+    ports:
+      - 5006:80
+    networks:
+      - micro
+
+networks:
+  micro:
+    name: micro
+    external: true
