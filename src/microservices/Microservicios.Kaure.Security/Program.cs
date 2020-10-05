@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Steeltoe.Extensions.Configuration.ConfigServer;
 
 namespace Microservicios.Kaure.Security
 {
@@ -18,6 +13,15 @@ namespace Microservicios.Kaure.Security
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.ConfigureAppConfiguration((host, config) =>
+                    {
+                        var env = host.HostingEnvironment;
+                        config.AddConfigServer(env.EnvironmentName);
+                    });
+
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

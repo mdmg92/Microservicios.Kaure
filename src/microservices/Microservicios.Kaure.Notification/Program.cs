@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Steeltoe.Extensions.Configuration.ConfigServer;
 
 namespace Microservicios.Kaure.Notification
 {
@@ -14,6 +15,12 @@ namespace Microservicios.Kaure.Notification
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureAppConfiguration((host, config) =>
+                    {
+                        var env = host.HostingEnvironment;
+                        config.AddConfigServer(env.EnvironmentName);
+                    });
+
                     webBuilder.UseStartup<Startup>();
                 });
     }

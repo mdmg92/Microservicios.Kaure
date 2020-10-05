@@ -35,7 +35,7 @@ namespace Microservicios.Kaure.Notification
             services.AddDbContext<NotificationContext>(
                opt =>
                {
-                   opt.UseMySQL(Configuration.GetConnectionString("MariaDb"));
+                   opt.UseMySQL(Configuration.GetConnectionString("Mariadb"));
                });
 
             services.AddScoped<IMailRepository, MailRepository>();

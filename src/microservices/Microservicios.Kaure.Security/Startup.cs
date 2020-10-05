@@ -33,7 +33,7 @@ namespace Microservicios.Kaure.Security
 
             services.AddDbContext<SecurityContext>(o =>
             {
-                o.UseMySQL(Configuration.GetConnectionString("MySQL"));
+                o.UseMySQL(Configuration.GetConnectionString("Mysql"));
             });
 
             services.AddScoped<IAccessService, AccessService>();

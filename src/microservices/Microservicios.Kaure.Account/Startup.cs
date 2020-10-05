@@ -31,7 +31,7 @@ namespace Microservicios.Kaure.Account
             services.AddDbContext<AccountContext>(
               options =>
               {
-                  options.UseSqlServer(Configuration.GetConnectionString("SqlServer"));
+                  options.UseSqlServer(Configuration.GetConnectionString("Mssql"));
               });
 
             services.AddScoped<IAccountService, AccountService>();
